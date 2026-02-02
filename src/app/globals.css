@@ -116,3 +116,51 @@ h6 {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+  :root {
+    --grid-gap: 1rem;
+  }
+
+  .container {
+    width: 95%;
+    padding: 0 0.5rem;
+  }
+
+  .section {
+    padding: 3rem 0;
+  }
+
+  .title-large {
+    font-size: clamp(2.5rem, 12vw, 4rem) !important;
+    line-height: 0.95 !important;
+  }
+
+  .title-medium {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+
+  .text-body {
+    font-size: 0.95rem;
+  }
+
+  /* Mobile-specific utilities */
+  .mobile-hidden {
+    display: none !important;
+  }
+
+  .mobile-full-width {
+    width: 100% !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .title-large {
+    font-size: clamp(2rem, 14vw, 3rem) !important;
+  }
+
+  .text-body {
+    font-size: 0.9rem;
+  }
+}

@@ -43,11 +43,11 @@ export default function Home() {
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'flex-start',
-                paddingTop: '18vh',
+                paddingTop: 'clamp(12vh, 18vh, 20vh)',
                 paddingBottom: '2rem',
                 paddingLeft: 'var(--grid-gap)',
                 paddingRight: 'var(--grid-gap)',
-            }}>
+            }} className="hero-section">
                 <div className="container">
                     <motion.h1
                         className="title-large"
@@ -88,12 +88,12 @@ export default function Home() {
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 1.5, duration: 0.8 }} // Appear after typing
-                        className="text-body"
+                        className="text-body hero-description"
                         style={{
-                            fontSize: '1.1rem',
+                            fontSize: 'clamp(0.95rem, 2.5vw, 1.1rem)',
                             maxWidth: '600px',
                             borderLeft: '2px solid var(--accent-color)',
-                            paddingLeft: '1.5rem',
+                            paddingLeft: 'clamp(1rem, 2vw, 1.5rem)',
                             marginLeft: '5px'
                         }}
                     >
@@ -104,12 +104,12 @@ export default function Home() {
             </section>
 
             {/* Works Grid */}
-            <div className="container" style={{ paddingBottom: '6rem' }}>
-                <div style={{
+            <div className="container" style={{ paddingBottom: 'clamp(3rem, 8vw, 6rem)' }}>
+                <div className="works-grid" style={{
                     display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
-                    gap: '2vw',
-                    rowGap: '4rem'
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 350px), 1fr))',
+                    gap: 'clamp(1rem, 2vw, 2vw)',
+                    rowGap: 'clamp(2rem, 5vw, 4rem)'
                 }}>
                     {sections.flatMap(section => section.items).map((work: Work) => (
                         <Link href={`/work/${work.slug}`} key={work.id} className="work-card-link">
@@ -158,17 +158,29 @@ export default function Home() {
                 </div>
             </div>
 
-            <footer className="container" style={{
-                padding: '4rem 0',
+            <footer className="container site-footer" style={{
+                padding: 'clamp(2rem, 5vw, 4rem) 0',
                 borderTop: '1px solid #333',
                 display: 'flex',
+                flexDirection: 'row',
                 justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '1rem',
                 color: '#666',
-                fontSize: '0.9rem'
+                fontSize: 'clamp(0.8rem, 2vw, 0.9rem)'
             }}>
                 <div>&copy; {new Date().getFullYear()} MADNOMAD. All rights reserved.</div>
                 <div>for inquiries: salam@madnomad.kz</div>
             </footer>
+
+            <style jsx>{`
+                @media (max-width: 768px) {
+                    .site-footer {
+                        flex-direction: column !important;
+                        text-align: center;
+                    }
+                }
+            `}</style>
         </div>
     );
 }
