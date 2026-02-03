@@ -5,6 +5,9 @@ import { Work } from '@/lib/data';
 import Link from 'next/link';
 
 interface SiteContent {
+    home: {
+        heroBackground: string;
+    };
     about: {
         title: string;
         paragraphs: string[];
@@ -148,7 +151,7 @@ export default function AdminPage() {
     };
 
     // --- CONTENT HANDLERS ---
-    const handleContentChange = (section: 'about' | 'contact', field: string, value: any) => {
+    const handleContentChange = (section: 'home' | 'about' | 'contact', field: string, value: any) => {
         if (!content) return;
 
         setContent(prev => {
@@ -156,7 +159,7 @@ export default function AdminPage() {
             return {
                 ...prev,
                 [section]: {
-                    ...prev[section],
+                    ...prev[section as keyof SiteContent], // Cast to keyof SiteContent to avoid implicit any if needed, or just let TS infer
                     [field]: value
                 }
             };
@@ -310,6 +313,20 @@ export default function AdminPage() {
                     {contentStatus && <div className="status-msg" style={{ background: contentStatus.includes('Error') || contentStatus.includes('Failed') ? '#500' : '#050', padding: '1rem', marginBottom: '1rem', borderRadius: '4px' }}>{contentStatus}</div>}
 
                     <form onSubmit={saveContent} style={{ display: 'grid', gap: '2rem' }}>
+                        {/* Home Section */}
+                        <div style={{ background: '#222', padding: '2rem', borderRadius: '8px', border: '1px solid #333' }}>
+                            <h2 style={{ marginBottom: '1.5rem', color: 'var(--accent-color)' }}>Home Page</h2>
+                            <div className="input-group">
+                                <label>Hero Background API/URL (GIF supported)</label>
+                                <input
+                                    value={content.home?.heroBackground || ''}
+                                    onChange={(e) => handleContentChange('home', 'heroBackground', e.target.value)}
+                                    placeholder="https://example.com/animation.gif"
+                                />
+                                <small style={{ color: '#666' }}>Leave empty for black background.</small>
+                            </div>
+                        </div>
+
                         {/* About Section */}
                         <div style={{ background: '#222', padding: '2rem', borderRadius: '8px', border: '1px solid #333' }}>
                             <h2 style={{ marginBottom: '1.5rem', color: 'var(--accent-color)' }}>About Page</h2>

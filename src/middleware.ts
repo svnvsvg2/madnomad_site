@@ -11,7 +11,7 @@ export function middleware(request: NextRequest) {
 
             // Default credentials: admin / password
             // You can change "password" to something secure
-            if (user === 'admin' && pwd === 'password') {
+            if (user === 'baza' && pwd === 'sana') {
                 return NextResponse.next();
             }
         }

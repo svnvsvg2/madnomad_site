@@ -3,6 +3,7 @@
 import { sections, Section, Work } from '../lib/data';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 // Typing animation variants
 const sentence = {
@@ -35,6 +36,20 @@ const fadeInUp = {
 };
 
 export default function Home() {
+    const [heroBg, setHeroBg] = useState('');
+
+    useEffect(() => {
+        // Fetch background from CMS
+        fetch(`/api/content?t=${Date.now()}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.home?.heroBackground) {
+                    setHeroBg(data.home.heroBackground);
+                }
+            })
+            .catch(err => console.error(err));
+    }, []);
+
     return (
         <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-color)', color: 'var(--text-color)' }}>
             {/* Hero Section */}
@@ -44,11 +59,46 @@ export default function Home() {
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
-                paddingTop: '20vh', /* More space for the centered navbar */
+                paddingTop: '20vh',
                 paddingBottom: '4rem',
-                textAlign: 'center'
+                textAlign: 'center',
+                position: 'relative',
+                overflow: 'hidden'
             }} className="hero-section">
-                <div className="container">
+
+                {/* Background Image/GIF or Video */}
+                {heroBg && (
+                    heroBg.endsWith('.webm') || heroBg.endsWith('.mp4') ? (
+                        <video
+                            src={heroBg}
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                            style={{
+                                position: 'absolute',
+                                inset: 0,
+                                zIndex: 0,
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                                opacity: 0.4
+                            }}
+                        />
+                    ) : (
+                        <div style={{
+                            position: 'absolute',
+                            inset: 0,
+                            zIndex: 0,
+                            backgroundImage: `url(${heroBg})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            opacity: 0.4 /* Low opacity to keep text readable */
+                        }} />
+                    )
+                )}
+
+                <div className="container" style={{ position: 'relative', zIndex: 1 }}>
                     <motion.h1
                         className="title-large"
                         variants={sentence}
@@ -115,37 +165,17 @@ export default function Home() {
                                 viewport={{ once: true, margin: "-50px" }}
                                 variants={fadeInUp}
                             >
-                                <div className="media-wrapper" style={{
-                                    aspectRatio: '16/9',
-                                    overflow: 'hidden',
-                                    background: '#222',
-                                    marginBottom: '1rem',
-                                    position: 'relative'
-                                }}>
+                                <div className="media-wrapper">
                                     <img
                                         src={work.thumbnailUrl}
                                         alt={work.title}
-                                        style={{
-                                            width: '100%',
-                                            height: '100%',
-                                            objectFit: 'cover',
-                                            transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
-                                        }}
                                         className="work-image"
                                     />
-                                </div>
-                                <div className="work-info">
-                                    <h3 style={{
-                                        fontSize: '1.1rem',
-                                        marginBottom: '0.25rem',
-                                        fontFamily: 'Inter, sans-serif',
-                                        fontWeight: 500,
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '0.02em',
-                                        textAlign: 'center' /* Center titles too */
-                                    }}>
-                                        {work.title}
-                                    </h3>
+                                    <div className="work-overlay">
+                                        <h3 className="work-title">
+                                            {work.title}
+                                        </h3>
+                                    </div>
                                 </div>
                             </motion.article>
                         </Link>
@@ -170,17 +200,72 @@ export default function Home() {
 
             <style jsx>{`
                 .works-container {
-                    width: 90%;
-                    max-width: 1400px;
+                    width: 95%; /* Wider container */
+                    max-width: 1800px; /* Allow it to go wider */
                     margin: 0 auto;
                     padding: 0 1rem;
                 }
 
                 .works-grid {
                     display: grid;
-                    grid-template-columns: repeat(auto-fill, minmax(min(100%, 450px), 1fr)); /* Larger items on desktop */
-                    gap: clamp(2rem, 4vw, 4vw);
-                    row-gap: clamp(3rem, 6vw, 6rem);
+                    /* Larger items: ensure at least 600px width before wrapping, forcing 1 or 2 columns mostly */
+                    grid-template-columns: repeat(auto-fill, minmax(min(100%, 600px), 1fr));
+                    gap: 1rem; /* Closer together */
+                    row-gap: 1rem;
+                }
+
+                .media-wrapper {
+                    aspect-ratio: 16/9;
+                    overflow: hidden;
+                    background: #222;
+                    position: relative;
+                }
+
+                .work-image {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+                }
+
+                /* Zoom effect on hover */
+                .work-card-link:hover .work-image {
+                    transform: scale(1.05);
+                }
+
+                .work-overlay {
+                    position: absolute;
+                    inset: 0;
+                    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent 40%);
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-end; /* Text at bottom */
+                    padding: 2rem;
+                    opacity: 1; /* Always visible */
+                    transition: opacity 0.4s ease;
+                    z-index: 10; /* Ensure on top */
+                    pointer-events: none; /* Let clicks pass through */
+                }
+
+                /* .work-card-link:hover .work-overlay {
+                    opacity: 1;
+                } */
+
+                .work-title {
+                    font-size: 1.5rem;
+                    font-family: 'Inter', sans-serif;
+                    font-weight: 500;
+                    text-transform: uppercase;
+                    letter-spacing: 0.02em;
+                    color: white;
+                    text-align: center;
+                }
+
+                @media (hover: none) {
+                    /* On touch devices, always show the title since there is no hover */
+                    .work-overlay {
+                        opacity: 1;
+                    }
                 }
 
                 @media (max-width: 768px) {
@@ -198,8 +283,8 @@ export default function Home() {
                     
                     .works-grid {
                         grid-template-columns: 1fr !important; /* Force 1 column */
-                        gap: 0 !important; /* Remove gap if we want them touching, or keep small */
-                        row-gap: 2rem !important;
+                        gap: 2px !important; /* Very close on mobile */
+                        row-gap: 2px !important;
                     }
 
                     .work-card-link {
@@ -208,11 +293,7 @@ export default function Home() {
                     }
 
                     .media-wrapper {
-                        border-radius: 0 !important; /* Full bleed images usually square off */
-                    }
-
-                    .work-info {
-                        padding: 0 1rem; /* Add padding for text since container has none */
+                        border-radius: 0 !important;
                     }
                 }
             `}</style>
