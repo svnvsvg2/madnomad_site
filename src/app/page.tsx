@@ -1,6 +1,6 @@
 "use client";
 
-import { sections, Section, Work } from '../lib/data';
+import { Work } from '../lib/data';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
@@ -37,14 +37,25 @@ const fadeInUp = {
 
 export default function Home() {
     const [heroBg, setHeroBg] = useState('');
+    const [works, setWorks] = useState<Work[]>([]);
 
     useEffect(() => {
-        // Fetch background from CMS
+        // Fetch content (hero background)
         fetch(`/api/content?t=${Date.now()}`)
             .then(res => res.json())
             .then(data => {
                 if (data.home?.heroBackground) {
                     setHeroBg(data.home.heroBackground);
+                }
+            })
+            .catch(err => console.error(err));
+
+        // Fetch works
+        fetch(`/api/works?t=${Date.now()}`)
+            .then(res => res.json())
+            .then(data => {
+                if (Array.isArray(data)) {
+                    setWorks(data);
                 }
             })
             .catch(err => console.error(err));
@@ -168,7 +179,7 @@ export default function Home() {
             {/* Works Grid */}
             <div className="works-container" style={{ paddingBottom: 'clamp(3rem, 8vw, 6rem)' }}>
                 <div className="works-grid">
-                    {sections.flatMap(section => section.items).map((work: Work) => (
+                    {works.map((work: Work) => (
                         <Link href={`/work/${work.slug}`} key={work.id} className="work-card-link">
                             <motion.article
                                 style={{ position: 'relative', cursor: 'pointer' }}
