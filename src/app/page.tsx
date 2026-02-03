@@ -98,6 +98,18 @@ export default function Home() {
                     )
                 )}
 
+                {/* Gradient Fade at Bottom */}
+                <div style={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '200px',
+                    background: 'linear-gradient(to bottom, transparent, var(--bg-color))',
+                    zIndex: 0,
+                    pointerEvents: 'none'
+                }} />
+
                 <div className="container" style={{ position: 'relative', zIndex: 1 }}>
                     <motion.h1
                         className="title-large"
