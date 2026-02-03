@@ -1,32 +1,22 @@
 [
   {
-    "id": "ssssss",
-    "slug": "5s",
-    "title": "sss",
+    "id": "YONEX-2025",
+    "slug": "YONEX-2025",
+    "title": "Yonex |  SPIN OPERATOR | ",
     "category": "Commercial",
-    "thumbnailUrl": "/img/Screenshot 2026-01-24 194043.png",
-    "videoUrl": "https://youtu.be/LhGZpyefG6A",
-    "description": "",
-    "year": "2026"
+    "thumbnailUrl": "/img/YONEX_2025.png",
+    "videoUrl": "https://youtu.be/iHmo32GNf6Y",
+    "description": "YONEX \nCGI- VFX",
+    "year": "2025"
   },
   {
-    "id": "gonka",
-    "slug": "gonkaaaaa",
-    "title": "F1",
+    "id": "PRADA_SS_26",
+    "slug": "PRADA_SS_26",
+    "title": " Prada Spring/Summer 2026",
     "category": "Commercial",
-    "thumbnailUrl": "/img/Screenshot 2026-01-24 192713.png",
-    "videoUrl": "https://youtu.be/I_XJSaWMMo0",
-    "description": "",
-    "year": "2026"
-  },
-  {
-    "id": "ssss",
-    "slug": "6667-astana",
-    "title": "mmmmmm",
-    "category": "Commercial",
-    "thumbnailUrl": "/img/Screenshot 2026-01-23 221900.png",
-    "videoUrl": "https://youtu.be/NbAzTOb_wOw",
-    "description": "che to tam hgello salam - aleikum",
+    "thumbnailUrl": "/img/PRADA_WWS25.png",
+    "videoUrl": "https://youtu.be/eOUQ7bYfIAs",
+    "description": "retouching and beauty",
     "year": "2026"
   }
 ]

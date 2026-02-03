@@ -1,6 +1,6 @@
 "use client";
 
-import { Work } from '../lib/data';
+import { sections, Section, Work } from '../lib/data';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';

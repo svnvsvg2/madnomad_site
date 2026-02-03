@@ -1,31 +1,28 @@
 import { NextResponse } from 'next/server';
-import { sql } from '@vercel/postgres';
+import fs from 'fs/promises';
+import path from 'path';
+
+const contentFilePath = path.join(process.cwd(), 'src/data/site-content.json');
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
     try {
-        const { rows } = await sql`SELECT value FROM site_content WHERE key = 'site_data' LIMIT 1`;
-        if (rows.length > 0) {
-            return NextResponse.json(rows[0].value);
-        }
-        return NextResponse.json({});
+        const fileContent = await fs.readFile(contentFilePath, 'utf-8');
+        const data = JSON.parse(fileContent);
+        return NextResponse.json(data);
     } catch (error) {
-        return NextResponse.json({ error: 'Failed to read content data' }, { status: 500 });
+        return NextResponse.json({});
     }
 }
 
 export async function POST(request: Request) {
     try {
         const newData = await request.json();
-        await sql`
-            INSERT INTO site_content (key, value)
-            VALUES ('site_data', ${newData})
-            ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
-        `;
-        return NextResponse.json({ message: 'Content updated successfully' });
+        await fs.writeFile(contentFilePath, JSON.stringify(newData, null, 2), 'utf-8');
+        return NextResponse.json({ message: 'Saved successfully' });
     } catch (error) {
-        console.error(error);
-        return NextResponse.json({ error: 'Failed to save content data' }, { status: 500 });
+        console.error('File Write Error:', error);
+        return NextResponse.json({ error: 'Failed to save' }, { status: 500 });
     }
 }
