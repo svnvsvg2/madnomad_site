@@ -39,14 +39,14 @@ export default function Home() {
         <div style={{ minHeight: '100vh', backgroundColor: 'var(--bg-color)', color: 'var(--text-color)' }}>
             {/* Hero Section */}
             <section style={{
-                minHeight: '40vh',
+                minHeight: '60vh',
                 display: 'flex',
                 flexDirection: 'column',
-                justifyContent: 'flex-start',
-                paddingTop: 'clamp(12vh, 18vh, 20vh)',
-                paddingBottom: '2rem',
-                paddingLeft: 'var(--grid-gap)',
-                paddingRight: 'var(--grid-gap)',
+                justifyContent: 'center',
+                alignItems: 'center',
+                paddingTop: '20vh', /* More space for the centered navbar */
+                paddingBottom: '4rem',
+                textAlign: 'center'
             }} className="hero-section">
                 <div className="container">
                     <motion.h1
@@ -56,12 +56,12 @@ export default function Home() {
                         animate="visible"
                         style={{
                             marginBottom: '2rem',
-                            fontSize: 'clamp(4rem, 10vw, 8rem)',
+                            fontSize: 'clamp(3rem, 10vw, 8rem)',
                             letterSpacing: '-0.04em',
                             lineHeight: 0.85,
                             display: 'flex',
                             flexDirection: 'column',
-                            alignItems: 'flex-start'
+                            alignItems: 'center'
                         }}
                     >
                         {/* Line 1: MADNOMAD. */}
@@ -85,16 +85,16 @@ export default function Home() {
                     </motion.h1>
 
                     <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 1.5, duration: 0.8 }} // Appear after typing
                         className="text-body hero-description"
                         style={{
                             fontSize: 'clamp(0.95rem, 2.5vw, 1.1rem)',
                             maxWidth: '600px',
-                            borderLeft: '2px solid var(--accent-color)',
-                            paddingLeft: 'clamp(1rem, 2vw, 1.5rem)',
-                            marginLeft: '5px'
+                            margin: '0 auto',
+                            borderLeft: 'none', /* Removed side border for centered layout */
+                            paddingLeft: 0,
                         }}
                     >
                         Visual Reality Engineers.<br />
@@ -104,13 +104,8 @@ export default function Home() {
             </section>
 
             {/* Works Grid */}
-            <div className="container" style={{ paddingBottom: 'clamp(3rem, 8vw, 6rem)' }}>
-                <div className="works-grid" style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 350px), 1fr))',
-                    gap: 'clamp(1rem, 2vw, 2vw)',
-                    rowGap: 'clamp(2rem, 5vw, 4rem)'
-                }}>
+            <div className="works-container" style={{ paddingBottom: 'clamp(3rem, 8vw, 6rem)' }}>
+                <div className="works-grid">
                     {sections.flatMap(section => section.items).map((work: Work) => (
                         <Link href={`/work/${work.slug}`} key={work.id} className="work-card-link">
                             <motion.article
@@ -138,16 +133,16 @@ export default function Home() {
                                         }}
                                         className="work-image"
                                     />
-                                    {/* Overlay on hover could go here, handled via CSS on parent typically */}
                                 </div>
-                                <div>
+                                <div className="work-info">
                                     <h3 style={{
                                         fontSize: '1.1rem',
                                         marginBottom: '0.25rem',
                                         fontFamily: 'Inter, sans-serif',
                                         fontWeight: 500,
                                         textTransform: 'uppercase',
-                                        letterSpacing: '0.02em'
+                                        letterSpacing: '0.02em',
+                                        textAlign: 'center' /* Center titles too */
                                     }}>
                                         {work.title}
                                     </h3>
@@ -174,10 +169,50 @@ export default function Home() {
             </footer>
 
             <style jsx>{`
+                .works-container {
+                    width: 90%;
+                    max-width: 1400px;
+                    margin: 0 auto;
+                    padding: 0 1rem;
+                }
+
+                .works-grid {
+                    display: grid;
+                    grid-template-columns: repeat(auto-fill, minmax(min(100%, 450px), 1fr)); /* Larger items on desktop */
+                    gap: clamp(2rem, 4vw, 4vw);
+                    row-gap: clamp(3rem, 6vw, 6rem);
+                }
+
                 @media (max-width: 768px) {
                     .site-footer {
                         flex-direction: column !important;
                         text-align: center;
+                    }
+                    
+                    /* Mobile works grid adjustments */
+                    .works-container {
+                        width: 100% !important;
+                        padding: 0 !important; /* Remove side padding */
+                        max-width: 100% !important;
+                    }
+                    
+                    .works-grid {
+                        grid-template-columns: 1fr !important; /* Force 1 column */
+                        gap: 0 !important; /* Remove gap if we want them touching, or keep small */
+                        row-gap: 2rem !important;
+                    }
+
+                    .work-card-link {
+                         display: block;
+                         width: 100%;
+                    }
+
+                    .media-wrapper {
+                        border-radius: 0 !important; /* Full bleed images usually square off */
+                    }
+
+                    .work-info {
+                        padding: 0 1rem; /* Add padding for text since container has none */
                     }
                 }
             `}</style>

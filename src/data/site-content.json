@@ -1,0 +1,29 @@
+{
+  "about": {
+    "title": "ABOUT US",
+    "paragraphs": [
+      "MADNOMAD is a collective of visual engineers and creative directors dedicated to pushing the boundaries of digital expression.",
+      "We specialize in VFX, CGI, and immersive web experiences. Our work is defined by a relentless pursuit of visual fidelity and narrative depth.",
+      "Based in Kazakhstan, working globally."
+    ]
+  },
+  "contact": {
+    "title": "CONTACT",
+    "intro": "Interested in working together?\nGet in touch for inquiries and collaborations.",
+    "email": "contact@madnomad.kz",
+    "socials": [
+      {
+        "name": "Instagram",
+        "url": "https://www.instagram.com/madnomad.collective/"
+      },
+      {
+        "name": "",
+        "url": ""
+      },
+      {
+        "name": "",
+        "url": ""
+      }
+    ]
+  }
+}
