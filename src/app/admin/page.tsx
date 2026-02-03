@@ -86,8 +86,17 @@ export default function AdminPage() {
 
     const handleDeleteWork = async (id: string) => {
         if (!confirm('Are you sure you want to delete this work?')) return;
-        const newWorks = works.filter(w => w.id !== id);
-        await saveWorks(newWorks);
+        try {
+            const res = await fetch(`/api/works?id=${id}`, { method: 'DELETE' });
+            if (res.ok) {
+                await fetchWorks();
+            } else {
+                alert('Failed to delete');
+            }
+        } catch (err) {
+            console.error(err);
+            alert('Error deleting work');
+        }
     };
 
     const handleSaveWork = async (e: React.FormEvent) => {
@@ -99,43 +108,28 @@ export default function AdminPage() {
             return;
         }
 
-        let newWorks = [...works];
-        if (editingId) {
-            const index = newWorks.findIndex(w => w.id === editingId);
-            if (index !== -1) newWorks[index] = workFormData;
-        } else {
-            if (newWorks.some(w => w.id === workFormData.id)) {
-                setWorksStatus('Error: ID already exists');
-                return;
-            }
-            newWorks.unshift(workFormData);
-        }
-
-        await saveWorks(newWorks);
-
-        setEditingId(null);
-        setWorkFormData({
-            id: '',
-            slug: '',
-            title: '',
-            category: 'Commercial',
-            thumbnailUrl: '',
-            videoUrl: '',
-            description: '',
-            year: new Date().getFullYear().toString()
-        });
-    };
-
-    const saveWorks = async (newWorks: Work[]) => {
         try {
             const res = await fetch('/api/works', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(newWorks)
+                body: JSON.stringify(workFormData)
             });
+
             if (res.ok) {
-                setWorks(newWorks);
                 setWorksStatus('Saved successfully!');
+                await fetchWorks();
+
+                setEditingId(null);
+                setWorkFormData({
+                    id: '',
+                    slug: '',
+                    title: '',
+                    category: 'Commercial',
+                    thumbnailUrl: '',
+                    videoUrl: '',
+                    description: '',
+                    year: new Date().getFullYear().toString()
+                });
                 setTimeout(() => setWorksStatus(''), 3000);
             } else {
                 setWorksStatus('Failed to save.');
@@ -144,6 +138,7 @@ export default function AdminPage() {
             setWorksStatus('Error saving data.');
         }
     };
+    /* Removed old saveWorks helper as it is replaced by per-item API calls */
 
     const handleWorkChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
