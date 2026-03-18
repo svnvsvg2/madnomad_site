@@ -1,5 +1,25 @@
 [
   {
+    "id": "new-era-f1",
+    "slug": "new-era-f1",
+    "title": "NEW ERA F1",
+    "category": "Commercial",
+    "thumbnailUrl": "/img/new_era_f1.png",
+    "videoUrl": "https://pub-69586fb0def1433eb1ae9c6d03f671fb.r2.dev/New%20Era%20F1%202024.mp4",
+    "description": "",
+    "year": "2024"
+  },
+  {
+    "id": "usher-visual",
+    "slug": "usher-visual",
+    "title": "Usher Rendez-Vous À Paris Show Intro 2024",
+    "category": "Commercial",
+    "thumbnailUrl": "/img/usher_visual.png",
+    "videoUrl": "https://pub-69586fb0def1433eb1ae9c6d03f671fb.r2.dev/Usher%20Rendez-Vous%20%C3%80%20Paris%20Show%20Intro%202024.mp4",
+    "description": "",
+    "year": "2024"
+  },
+  {
     "id": "remy_martin",
     "slug": "remy_martin",
     "title": "Remy Martin - Capture the Night",
