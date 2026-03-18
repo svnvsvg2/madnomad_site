@@ -1,5 +1,45 @@
 [
   {
+    "id": "PRADA_SS_26",
+    "slug": "PRADA_SS_26",
+    "title": " Prada Spring/Summer 2026",
+    "category": "Commercial",
+    "thumbnailUrl": "/img/PRADA_WWS25.png",
+    "videoUrl": "https://youtu.be/eOUQ7bYfIAs",
+    "description": "retouching and beauty",
+    "year": "2026"
+  },
+  {
+    "id": "almaty_marathon",
+    "slug": "almaty_marathon_2025",
+    "title": "ALMATY MARATHON 2025",
+    "category": "Commercial",
+    "thumbnailUrl": "/img/AM_2025.jpg",
+    "videoUrl": "https://pub-69586fb0def1433eb1ae9c6d03f671fb.r2.dev/ALMATY_MARATHON_2025.mp4",
+    "description": "",
+    "year": "2025"
+  },
+  {
+    "id": "HAROSHICAN",
+    "slug": "HAROSHICAN",
+    "title": "Haroshi x Budweiser \"HAROSHICAN\" Film",
+    "category": "Commercial",
+    "thumbnailUrl": "/img/BUD_2025.png",
+    "videoUrl": "https://pub-69586fb0def1433eb1ae9c6d03f671fb.r2.dev/BUD_2025.mp4",
+    "description": "",
+    "year": "2025"
+  },
+  {
+    "id": "weekend_tmb",
+    "slug": "WEEKEND_TAKE_MY_BREATH",
+    "title": "WEEKEND - TAKE MY BREATH",
+    "category": "Music VIdeo",
+    "thumbnailUrl": "/img/weekend_tmb.png",
+    "videoUrl": "https://pub-69586fb0def1433eb1ae9c6d03f671fb.r2.dev/WEEKEND_TMB.mp4",
+    "description": "",
+    "year": "2021"
+  },
+  {
     "id": "YONEX-2025",
     "slug": "YONEX-2025",
     "title": "Yonex |  SPIN OPERATOR | ",
@@ -17,26 +57,6 @@
     "thumbnailUrl": "/img/1R.png",
     "videoUrl": "https://youtu.be/TOxUYkVDdVs",
     "description": "VFX FOR MUSCI VIDEO ",
-    "year": "2026"
-  },
-  {
-    "id": "HAROSHICAN",
-    "slug": "HAROSHICAN",
-    "title": "Haroshi x Budweiser \"HAROSHICAN\" Film",
-    "category": "Commercial",
-    "thumbnailUrl": "/img/BUD_2025.png",
-    "videoUrl": "https://pub-69586fb0def1433eb1ae9c6d03f671fb.r2.dev/BUD_2025.mp4",
-    "description": "",
-    "year": "2025"
-  },
-  {
-    "id": "PRADA_SS_26",
-    "slug": "PRADA_SS_26",
-    "title": " Prada Spring/Summer 2026",
-    "category": "Commercial",
-    "thumbnailUrl": "/img/PRADA_WWS25.png",
-    "videoUrl": "https://youtu.be/eOUQ7bYfIAs",
-    "description": "retouching and beauty",
     "year": "2026"
   }
 ]
