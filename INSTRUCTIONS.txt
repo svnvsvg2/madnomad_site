@@ -1,0 +1,43 @@
+==========================================
+HOW TO RUN AND EDIT YOUR SITE LOCALLY
+==========================================
+
+1. OPEN A TERMINAL
+   Open Command Prompt, PowerShell, or the terminal inside your code editor (like VS Code).
+   Make sure you are in your project folder:
+   d:\AG\PORTFOLIO_SITE
+
+2. START THE LOCAL SERVER
+   Run the following command:
+   npm run dev
+
+3. VIEW THE SITE
+   Open your web browser (Chrome, Edge, etc.) and go to:
+   http://localhost:3000
+
+4. MAKE CHANGES
+   Leave the terminal running. 
+   You can now open the project files in your code editor and make changes (e.g., inside the `src` folder or modifying your JSON content files).
+   Every time you save a file, the site in your browser will automatically update to show your changes!
+
+   When you are done testing, you can stop the local server by pressing Ctrl + C in the terminal.
+
+==========================================
+HOW TO DEPLOY YOUR CHANGES LIVE
+==========================================
+
+When you are happy with your local changes and want to publish them to your live website, follow these steps:
+
+1. RUN THE DEPLOY SCRIPT
+   In your project folder (d:\AG\PORTFOLIO_SITE), you have a script called `deploy.bat`.
+   You can either:
+   - Double-click `deploy.bat` in your File Explorer.
+   - OR run `.\deploy.bat` in your terminal.
+
+2. ENTER A COMMIT MESSAGE
+   The script will ask you for a commit message (a short description of what you changed).
+   Type it and press Enter (or just press Enter to use the default message).
+
+3. WAIT FOR Vercel
+   The script will push your code to your GitHub repository.
+   Because your GitHub is linked to Vercel, Vercel will automatically detect the changes and rebuild your live website. It usually takes a minute or two to update online.

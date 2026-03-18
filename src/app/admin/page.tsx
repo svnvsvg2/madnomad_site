@@ -217,6 +217,17 @@ export default function AdminPage() {
                         >
                             Pages Content
                         </button>
+                        <Link
+                            href="/admin/order-projects"
+                            className="btn"
+                            style={{
+                                color: '#ccc',
+                                padding: '0.5rem 1rem',
+                                textDecoration: 'none'
+                             }}
+                        >
+                            Order Projects
+                        </Link>
                     </div>
                     <Link href="/" className="btn" style={{ padding: '0.5rem 1rem', fontSize: '0.8rem' }}>View Site</Link>
                 </div>
