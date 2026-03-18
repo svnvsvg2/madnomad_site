@@ -1,5 +1,7 @@
 "use client";
 
+import { useState, useRef } from 'react';
+import { Volume2, VolumeX } from 'lucide-react';
 import { sections, Work } from '../../../lib/data';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -13,6 +15,16 @@ const getAllWorks = (): Work[] => {
 export default function WorkPage({ params }: { params: { slug: string } }) {
     const works = getAllWorks();
     const work = works.find((w) => w.slug === params.slug);
+
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const [isMuted, setIsMuted] = useState(true);
+
+    const toggleMute = () => {
+        if (videoRef.current) {
+            videoRef.current.muted = !isMuted;
+            setIsMuted(!isMuted);
+        }
+    };
 
     if (!work) {
         notFound();
@@ -47,22 +59,49 @@ export default function WorkPage({ params }: { params: { slug: string } }) {
                         allowFullScreen
                     />
                 ) : (
-                    <video
-                        src={work.videoUrl}
-                        controls
-                        autoPlay
-                        muted
-                        loop
-                        title=" "
-                        disablePictureInPicture
-                        controlsList="nodownload"
-                        style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover',
-                            maxHeight: '100vh'
-                        }}
-                    />
+                    <>
+                        <video
+                            ref={videoRef}
+                            src={work.videoUrl}
+                            controls
+                            playsInline
+                            autoPlay
+                            muted={isMuted}
+                            loop
+                            title=" "
+                            disablePictureInPicture
+                            controlsList="nodownload"
+                            style={{
+                                width: '100%',
+                                height: '100%',
+                                objectFit: 'cover',
+                                maxHeight: '100vh'
+                            }}
+                        />
+                        <button 
+                            onClick={toggleMute}
+                            style={{
+                                position: 'absolute',
+                                bottom: 'clamp(1rem, 3vw, 2rem)',
+                                left: 'clamp(1rem, 3vw, 2rem)',
+                                zIndex: 20,
+                                background: 'rgba(0,0,0,0.6)',
+                                border: '1px solid rgba(255,255,255,0.2)',
+                                color: 'white',
+                                padding: '0.6rem 1rem',
+                                borderRadius: '30px',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.5rem',
+                                backdropFilter: 'blur(4px)',
+                                fontStyle: 'normal'
+                            }}
+                        >
+                            {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+                            <span style={{ fontSize: '0.9rem', fontWeight: 500 }}>{isMuted ? 'Unmute' : 'Mute'}</span>
+                        </button>
+                    </>
                 )}
 
             </div>

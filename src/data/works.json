@@ -1,5 +1,15 @@
 [
   {
+    "id": "new_era_paris",
+    "slug": "new_era_paris",
+    "title": "New Era Paris 2024",
+    "category": "Commercial",
+    "thumbnailUrl": "/img/new_era_olympic.png",
+    "videoUrl": "https://pub-69586fb0def1433eb1ae9c6d03f671fb.r2.dev/New%20Era%20France%20Olympics%202024.mp4",
+    "description": "",
+    "year": "2024"
+  },
+  {
     "id": "new-era-f1",
     "slug": "new-era-f1",
     "title": "NEW ERA F1",
