@@ -18,6 +18,21 @@ export default function WorkPage({ params }: { params: { slug: string } }) {
 
     const videoRef = useRef<HTMLVideoElement>(null);
     const [isMuted, setIsMuted] = useState(true);
+    
+    // Auto-hide controls logic
+    const [showControls, setShowControls] = useState(true);
+    const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+    const handleInteraction = () => {
+        setShowControls(true);
+        if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        timeoutRef.current = setTimeout(() => {
+            // Only hide if the video is actually playing, otherwise keep it visible so they know they can interact
+            if (videoRef.current && !videoRef.current.paused) {
+                setShowControls(false);
+            }
+        }, 3000);
+    };
 
     const toggleMute = () => {
         if (videoRef.current) {
@@ -35,15 +50,21 @@ export default function WorkPage({ params }: { params: { slug: string } }) {
         <div style={{ minHeight: '100vh', background: '#050505' }}>
 
             {/* Fullscreen Video Header */}
-            <div className="video-header" style={{
-                height: 'clamp(50vh, 80vh, 90vh)',
-                width: '100%',
-                position: 'relative',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                background: '#000'
-            }}>
+            <div 
+                className="video-header" 
+                onMouseMove={handleInteraction}
+                onTouchStart={handleInteraction}
+                onMouseLeave={() => setShowControls(false)}
+                style={{
+                    height: 'clamp(50vh, 80vh, 90vh)',
+                    width: '100%',
+                    position: 'relative',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    background: '#000'
+                }}
+            >
                 {work.videoUrl.includes('youtube.com') || work.videoUrl.includes('youtu.be') ? (
                     <iframe
                         src={work.videoUrl.replace('watch?v=', 'embed/').replace('youtu.be/', 'www.youtube.com/embed/')}
@@ -82,7 +103,7 @@ export default function WorkPage({ params }: { params: { slug: string } }) {
                             onClick={toggleMute}
                             style={{
                                 position: 'absolute',
-                                bottom: 'clamp(1rem, 3vw, 2rem)',
+                                bottom: 'clamp(1.5rem, 4vw, 3rem)',
                                 left: 'clamp(1rem, 3vw, 2rem)',
                                 zIndex: 20,
                                 background: 'rgba(0,0,0,0.6)',
@@ -95,7 +116,10 @@ export default function WorkPage({ params }: { params: { slug: string } }) {
                                 alignItems: 'center',
                                 gap: '0.5rem',
                                 backdropFilter: 'blur(4px)',
-                                fontStyle: 'normal'
+                                fontStyle: 'normal',
+                                opacity: showControls ? 1 : 0,
+                                transition: 'opacity 0.3s ease, transform 0.2s',
+                                pointerEvents: showControls ? 'auto' : 'none'
                             }}
                         >
                             {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
