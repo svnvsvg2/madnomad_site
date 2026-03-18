@@ -229,7 +229,25 @@ export default function AdminPage() {
                             Order Projects
                         </Link>
                     </div>
-                    <Link href="/" className="btn" style={{ padding: '0.5rem 1rem', fontSize: '0.8rem' }}>View Site</Link>
+                    <div style={{ display: 'flex', gap: '0.5rem' }}>
+                        <button
+                            onClick={async () => {
+                                if (!confirm('Deploy changes to live website? This may take a minute.')) return;
+                                try {
+                                    const res = await fetch('/api/deploy', { method: 'POST' });
+                                    const data = await res.json();
+                                    alert(data.message || data.error);
+                                } catch (e) {
+                                    alert('Error deploying site.');
+                                }
+                            }}
+                            className="btn"
+                            style={{ padding: '0.5rem 1rem', fontSize: '0.8rem', background: '#0a0', color: 'white', border: 'none', cursor: 'pointer' }}
+                        >
+                            Deploy Live
+                        </button>
+                        <Link href="/" className="btn" style={{ padding: '0.5rem 1rem', fontSize: '0.8rem' }}>View Site</Link>
+                    </div>
                 </div>
             </div>
 

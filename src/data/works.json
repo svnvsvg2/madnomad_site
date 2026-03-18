@@ -1,5 +1,15 @@
 [
   {
+    "id": "new_era_mm",
+    "slug": "new_era_mm",
+    "title": "NEW ERA MARCH MADNESS 2024",
+    "category": "Commercial",
+    "thumbnailUrl": "/img/NEW_ERA.jpg",
+    "videoUrl": "https://pub-69586fb0def1433eb1ae9c6d03f671fb.r2.dev/New%20Era%20March%20Madness%2016-9.mp4",
+    "description": "",
+    "year": "2024"
+  },
+  {
     "id": "PRADA_SS_26",
     "slug": "PRADA_SS_26",
     "title": " Prada Spring/Summer 2026",

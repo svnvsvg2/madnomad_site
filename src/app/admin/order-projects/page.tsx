@@ -80,7 +80,25 @@ export default function OrderProjectsPage() {
         <div style={{ minHeight: '100vh', background: '#111', color: '#eee', padding: '2rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', maxWidth: '600px' }}>
                 <h1 style={{ color: 'var(--accent-color)' }}>Order Projects</h1>
-                <Link href="/admin" className="btn" style={{ padding: '0.5rem 1rem', background: '#333', color: 'white', textDecoration: 'none', borderRadius: '4px' }}>Back to Admin</Link>
+                <div style={{ display: 'flex', gap: '1rem' }}>
+                    <button
+                        onClick={async () => {
+                            if (!confirm('Deploy changes to live website? This may take a minute.')) return;
+                            try {
+                                const res = await fetch('/api/deploy', { method: 'POST' });
+                                const data = await res.json();
+                                alert(data.message || data.error);
+                            } catch (e) {
+                                alert('Error deploying site.');
+                            }
+                        }}
+                        className="btn"
+                        style={{ padding: '0.5rem 1rem', background: '#0a0', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+                    >
+                        Deploy Live
+                    </button>
+                    <Link href="/admin" className="btn" style={{ padding: '0.5rem 1rem', background: '#333', color: 'white', textDecoration: 'none', borderRadius: '4px' }}>Back to Admin</Link>
+                </div>
             </div>
 
             {status && (
