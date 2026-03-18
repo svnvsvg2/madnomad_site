@@ -53,6 +53,9 @@ export default function WorkPage({ params }: { params: { slug: string } }) {
                         autoPlay
                         muted
                         loop
+                        title=" "
+                        disablePictureInPicture
+                        controlsList="nodownload"
                         style={{
                             width: '100%',
                             height: '100%',
@@ -62,15 +65,6 @@ export default function WorkPage({ params }: { params: { slug: string } }) {
                     />
                 )}
 
-                <div className="video-title" style={{
-                    position: 'absolute',
-                    bottom: 'clamp(1rem, 3vw, 2rem)',
-                    left: 'clamp(1rem, 3vw, 2rem)',
-                    zIndex: 10,
-                    textShadow: '0 2px 10px rgba(0,0,0,0.5)'
-                }}>
-                    <h1 className="title-medium">{work.title}</h1>
-                </div>
             </div>
 
             {/* Info Section */}
